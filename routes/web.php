@@ -16,3 +16,4 @@
 // });
 
 Route::get('/authors', 'AuthorsController@index');
+Route::get('/authors/{id}', 'AuthorsController@show');

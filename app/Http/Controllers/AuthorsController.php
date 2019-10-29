@@ -12,5 +12,12 @@ class AuthorsController extends Controller
     return response()
       ->json($authors);
   }
+
+  public function show($id)
+  {
+    $author = Author::find($id);
+    return response()
+      ->json($author);
+  }
 }
 
