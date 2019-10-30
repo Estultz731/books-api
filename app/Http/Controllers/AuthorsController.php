@@ -19,5 +19,12 @@ class AuthorsController extends Controller
     return response()
       ->json($author);
   }
+
+  public function destroy($id)
+  {
+    Author::find($id)->delete();
+    return response()
+      ->json('Ok');
+  }
 }
 

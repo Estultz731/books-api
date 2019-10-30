@@ -38,4 +38,17 @@ class AuthorApiTest extends TestCase
         $response->assertStatus(200);
         $this->assertCount(2, $authorsResponse);
     }
+
+    public function test_it_can_delete_author()
+    {
+        $author = Author::create(['first_name' => 'Bram', 'last_name' => 'Stoker']);
+
+        $response = $this->delete('/authors/' . $author->id);
+
+        $authorsResponse = json_decode($response->getContent());
+        
+        $response->assertStatus(200);
+        $this->assertCount(0, Author::all());
+        $this->assertEquals('Ok', $authorsResponse);
+    }
 }
