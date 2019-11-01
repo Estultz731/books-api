@@ -51,4 +51,18 @@ class AuthorApiTest extends TestCase
         $this->assertCount(0, Author::all());
         $this->assertEquals('Ok', $authorsResponse);
     }
+
+    public function test_it_can_create_an_author()
+    {
+        $this->withoutMiddleware();
+
+        $response = $this->post('/authors', ['first_name' => 'Mary', 'last_name' => 'Shelley']);
+
+        $authorsResponse = json_decode($response->getContent());
+
+        $response->assertStatus(200);
+        $this->assertEquals('Mary', $authorsResponse->first_name);
+        $this->assertEquals('Shelley', $authorsResponse->last_name);
+
+    }
 }

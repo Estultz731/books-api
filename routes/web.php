@@ -18,3 +18,4 @@
 Route::get('/authors', 'AuthorsController@index');
 Route::get('/authors/{id}', 'AuthorsController@show');
 Route::delete('/authors/{id}', 'AuthorsController@destroy');
+Route::post('/authors', 'AuthorsController@store');
