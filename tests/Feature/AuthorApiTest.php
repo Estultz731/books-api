@@ -65,4 +65,17 @@ class AuthorApiTest extends TestCase
         $this->assertEquals('Shelley', $authorsResponse->last_name);
 
     }
+
+    public function test_it_can_update_an_author()
+    {
+        Author::create(['first_name' => 'Dean', 'last_name' => 'Koontz']);
+        $newAuthor = Author::create(['first_name' => 'Stephen', 'last_name' => 'King']);
+
+        $response = $this->put('/authors/' . $newAuthor->id, ['first_name' => 'Joe']);
+
+        $authorsResponse = json_decode($response->getContent());
+
+        $response->assertStatus(200);
+        $this->assertEquals('Joe', $authorsResponse->first_name);
+    }
 }
