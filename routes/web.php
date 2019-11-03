@@ -11,11 +11,10 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+//Authors
 
 Route::get('/authors', 'AuthorsController@index');
 Route::get('/authors/{id}', 'AuthorsController@show');
 Route::delete('/authors/{id}', 'AuthorsController@destroy');
 Route::post('/authors', 'AuthorsController@store');
+Route::put('/authors/{id}', 'AuthorsController@update');

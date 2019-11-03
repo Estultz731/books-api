@@ -40,5 +40,16 @@ class AuthorsController extends Controller
     return response()
       ->json($author);
   }
+
+  public function update($id, Request $request)
+  {
+    //Find the author by the id and update it using the request
+    Author::find($id)->update($request->input());
+    //Refetch the author and return it as json
+    $updatedAuthor = Author::find($id);
+
+    return response()
+      ->json($updatedAuthor);
+  }
 }
 
