@@ -51,5 +51,10 @@ class AuthorsController extends Controller
     return response()
       ->json($updatedAuthor);
   }
+
+  public function home()
+  {
+    return view('authors.index', ['authors' => Author::all()]);
+  }
 }
 
