@@ -8,6 +8,18 @@
     <link rel="stylesheet" href="">
   </head>
   <body>
-    <h1>The Author's Page!</h1>
+   <table>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+      </tr>
+      @foreach ($authors as $author)
+        <tr>
+          <td>{{$author->first_name}}</td>
+          <td>{{$author->last_name}}</td>
+        </tr>
+      @endforeach
+
+   </table>
   </body>
 </html>
