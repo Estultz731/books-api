@@ -18,7 +18,7 @@ class AuthorApiTest extends TestCase
     public function test_show_method()
     {
         $newAuthor = Author::create(['first_name' => 'Bram', 'last_name' => 'Stoker']);
-        $response = $this->get('/authors/' . $newAuthor->id);
+        $response = $this->get('api/authors/' . $newAuthor->id);
         $authorResponse = json_decode($response->getContent());
 
         $response->assertStatus(200);
@@ -32,7 +32,7 @@ class AuthorApiTest extends TestCase
         $authorOne = Author::create(['first_name' => 'Bram', 'last_name' => 'Stoker']);
         $authorTwo = Author::create(['first_name' => 'Mary', 'last_name' => 'Shelley']);
 
-        $response = $this->get('/authors');
+        $response = $this->get('api/authors');
         $authorsResponse = json_decode($response->getContent());
         
         $response->assertStatus(200);
@@ -43,7 +43,7 @@ class AuthorApiTest extends TestCase
     {
         $author = Author::create(['first_name' => 'Bram', 'last_name' => 'Stoker']);
 
-        $response = $this->delete('/authors/' . $author->id);
+        $response = $this->delete('api/authors/' . $author->id);
 
         $authorsResponse = json_decode($response->getContent());
         
@@ -56,7 +56,7 @@ class AuthorApiTest extends TestCase
     {
         $this->withoutMiddleware();
 
-        $response = $this->post('/authors', ['first_name' => 'Mary', 'last_name' => 'Shelley']);
+        $response = $this->post('api/authors', ['first_name' => 'Mary', 'last_name' => 'Shelley']);
 
         $authorsResponse = json_decode($response->getContent());
 
@@ -71,7 +71,7 @@ class AuthorApiTest extends TestCase
         Author::create(['first_name' => 'Dean', 'last_name' => 'Koontz']);
         $newAuthor = Author::create(['first_name' => 'Stephen', 'last_name' => 'King']);
 
-        $response = $this->put('/authors/' . $newAuthor->id, ['first_name' => 'Joe']);
+        $response = $this->put('api/authors/' . $newAuthor->id, ['first_name' => 'Joe']);
 
         $authorsResponse = json_decode($response->getContent());
 

@@ -13,11 +13,11 @@
 
 //Authors
 
-Route::get('/authors', 'AuthorsController@index');
-Route::get('/authors/{id}', 'AuthorsController@show');
-Route::delete('/authors/{id}', 'AuthorsController@destroy');
-Route::post('/authors', 'AuthorsController@store');
-Route::put('/authors/{id}', 'AuthorsController@update');
+Route::get('api/authors', 'AuthorsController@index');
+Route::get('api/authors/{id}', 'AuthorsController@show');
+Route::delete('api/authors/{id}', 'AuthorsController@destroy');
+Route::post('api/authors', 'AuthorsController@store');
+Route::put('api/authors/{id}', 'AuthorsController@update');
 
 //Books
-Route::get('/books', 'BooksController@index');
+Route::get('api/books', 'BooksController@index');

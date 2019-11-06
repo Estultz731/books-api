@@ -26,7 +26,7 @@ class BookApiTest extends TestCase {
        'publication_date' => Carbon::now()->toDateTimeString(),
        'author_id' => $author->id 
     ]);
-    $response = $this->get('/books');
+    $response = $this->get('api/books');
     $booksResponse = json_decode($response->getContent());
     
     $response->assertStatus(200);
