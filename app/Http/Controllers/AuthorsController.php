@@ -56,5 +56,11 @@ class AuthorsController extends Controller
   {
     return view('authors.index', ['authors' => Author::all()]);
   }
+
+  public function showOneAuthor($authorId)
+  {
+    $author = Author::find($authorId);
+    return view('authors.show', ['author' => $author]);
+  }
 }
 

@@ -21,6 +21,9 @@ Route::put('api/authors/{id}', 'AuthorsController@update');
 
 //Web Authors
 Route::get('/web/authors', 'AuthorsController@home');
+Route::get('/web/authors/{id}', 'AuthorsController@showOneAuthor');
+
+
 
 //Books
 Route::get('api/books', 'BooksController@index');
