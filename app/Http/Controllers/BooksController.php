@@ -17,4 +17,11 @@ class BooksController extends Controller
     return response()
       ->json($books);
   }
+
+  public function show($id)
+  {
+    $book = Book::with('author')->find($id);
+    return response()
+      ->json($book);
+  }
 }

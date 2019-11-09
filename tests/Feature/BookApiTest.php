@@ -33,4 +33,20 @@ class BookApiTest extends TestCase {
     $this->assertCount(1, $booksResponse);
     $this->assertEquals('Stephen', $booksResponse[0]->author->first_name);
    }
+
+   public function test_books_show_method()
+   {
+     //Create the conditions so that we can run the test.
+     $author = Author::create(['first_name' => 'Bram', 'last_name' => 'Stoker']);
+
+     $book = Book::create(['title' => 'Dracula', 'publication_date' => Carbon::now()->toDateTimeString(), 'author_id' => $author->id]);
+
+     //Call the api endpoint and store the response in a variable.
+     $response = $this->get("api/books/$author->id");
+     $booksResponse = json_decode($response->getContent());
+
+     $response->assertStatus(200);
+     $this->assertEquals('Dracula', $booksResponse->title);
+     $this->assertEquals('Bram', $booksResponse->author->first_name);
+   }
 }
