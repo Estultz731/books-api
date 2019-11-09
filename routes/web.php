@@ -25,5 +25,6 @@ Route::get('/web/authors/{id}', 'AuthorsController@showOneAuthor');
 
 
 
-//Books
+//API Books
 Route::get('api/books', 'BooksController@index');
+Route::get('api/books/{id}', 'BooksController@show');
