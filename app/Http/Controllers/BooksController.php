@@ -24,4 +24,11 @@ class BooksController extends Controller
     return response()
       ->json($book);
   }
+
+  public function destroy($id)
+  {
+    Book::find($id)->delete();
+    return response()
+      ->json('Deleted');
+  }
 }
