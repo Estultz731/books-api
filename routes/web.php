@@ -28,3 +28,4 @@ Route::get('/web/authors/{id}', 'AuthorsController@showOneAuthor');
 //API Books
 Route::get('api/books', 'BooksController@index');
 Route::get('api/books/{id}', 'BooksController@show');
+Route::delete('api/books/{id}', 'BooksController@destroy');
