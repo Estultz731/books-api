@@ -31,4 +31,13 @@ class BooksController extends Controller
     return response()
       ->json('Deleted');
   }
+
+  public function update($id, Request $request)
+  {
+    Book::find($id)->update($request->input());
+    $updatedBook = Book::find($id);
+
+    return response()
+      ->json($updatedBook);
+  }
 }
