@@ -77,4 +77,17 @@ class BookApiTest extends TestCase {
      $response->assertStatus(200);
      $this->assertEquals('The Vampire Lestat', $booksResponse->title);
    }
+
+   public function test_it_can_create_book()
+   {
+     $this->withoutMiddleware();
+
+     $author = Author::create(['first_name' => 'Bram', 'last_name' => 'Stoker']);
+
+     $response = $this->post('api/books', ['title' => 'Dracula', 'publication_date' => Carbon::now()->toDateTimeString(), 'author_id' => $author->id]);
+
+     $booksResponse = json_decode($response->getContent());
+     $response->assertStatus(200);
+     $this->assertEquals('Dracula', $booksResponse->title);
+   }
 }
