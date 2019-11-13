@@ -63,4 +63,18 @@ class BookApiTest extends TestCase {
      $this->assertCount(0, Book::all());
      $this->assertEquals('Deleted', $booksResponse);
    }
+
+   public function test_it_can_update_book()
+   {
+     $author = Author::create(['first_name' => 'Anne', 'last_name' => 'Rice']);
+
+     $book = Book::create(['title' => 'Interview With the Vampire', 'publication_date' => Carbon::now()->toDateTimeString(), 'author_id' => $author->id]);
+     $newBook = Book::create(['title' => 'The Vampire Armand', 'publication_date' => Carbon::now()->toDateTimeString(), 'author_id' => $author->id]);
+
+     $response = $this->put('api/books/' . $newBook->id, ['title' => 'The Vampire Lestat']);
+
+     $booksResponse = json_decode($response->getContent());
+     $response->assertStatus(200);
+     $this->assertEquals('The Vampire Lestat', $booksResponse->title);
+   }
 }
