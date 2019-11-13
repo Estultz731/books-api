@@ -40,4 +40,14 @@ class BooksController extends Controller
     return response()
       ->json($updatedBook);
   }
+  public function store(Request $request)
+  {
+    $title = $request->input('title');
+    $publicationDate = $request->input('publication_date');
+    $authorId = $request->input('author_id');
+    $book = Book::create(['title' => $title, 'publication_date' => $publicationDate, 'author_id' => $authorId]);
+
+    return response()
+      ->json($book);
+  }
 }
