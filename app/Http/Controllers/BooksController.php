@@ -50,4 +50,9 @@ class BooksController extends Controller
     return response()
       ->json($book);
   }
+
+  public function home()
+  {
+    return view('books.index', ['books' => Book::all()]);
+  }
 }
