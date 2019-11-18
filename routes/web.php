@@ -34,3 +34,4 @@ Route::post('api/books', 'BooksController@store');
 
 //Web Books
 Route::get('/web/books', 'BooksController@home');
+Route::get('web/books/{id}', 'BooksController@showOneBook');

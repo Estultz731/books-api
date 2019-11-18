@@ -55,4 +55,10 @@ class BooksController extends Controller
   {
     return view('books.index', ['books' => Book::all()]);
   }
+
+  public function showOneBook($bookId)
+  {
+    $book = Book::find($bookId);
+    return view('books.show', ['book' => $book]);
+  }
 }
