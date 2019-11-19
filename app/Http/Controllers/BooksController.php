@@ -4,18 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Author;
 use App\Book;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
 class BooksController extends Controller
 {
-  public function index()
+  public function index(Request $request)
   {
     //Get all books with authors
-    $books = Book::with('author')->get();
-    //Return books as json
+    //If there is no publication date query param, just return all the books.
+    if(!$request->query('publication_date')) {
+      $books = Book::with('author')->get();
+      //Return books as json
+      return response()
+        ->json($books);
+    }
+
+    if ($request->query('publication_date') === 'future') {
+      $futureBooks = Book::where('publication_date', '>', Carbon::now()->toDateTimeString())->with('author')->get();
+      return response()
+        ->json($futureBooks);
+    }
+
+    $pastBooks = Book::where('publication_date', '<', Carbon::now()->toDateTimeString())->with('author')->get();
+
     return response()
-      ->json($books);
+      ->json($pastBooks);
   }
 
   public function show($id)
