@@ -34,6 +34,40 @@ class BookApiTest extends TestCase {
     $this->assertEquals('Stephen', $booksResponse[0]->author->first_name);
    }
 
+   public function test_it_should_return_future_books()
+   {
+     //Create author and books
+     $author = Author::create(['first_name' => 'Stephen', 'last_name' => 'King']);
+     $book = Book::create([
+       'title' => 'Carrie', 
+       'publication_date' => Carbon::now()->addYears(1)->toDateTimeString(),
+       'author_id' => $author->id 
+    ]);
+    $response = $this->get('api/books?publication_date=future');
+    $booksResponse = json_decode($response->getContent());
+    
+    $response->assertStatus(200);
+    $this->assertCount(1, $booksResponse);
+    $this->assertEquals('Stephen', $booksResponse[0]->author->first_name);
+   }
+
+   public function test_it_should_return_past_books()
+   {
+     //Create author and books
+     $author = Author::create(['first_name' => 'Stephen', 'last_name' => 'King']);
+     $book = Book::create([
+       'title' => 'Carrie', 
+       'publication_date' => Carbon::now()->subYears(1)->toDateTimeString(),
+       'author_id' => $author->id 
+    ]);
+    $response = $this->get('api/books?publication_date=past');
+    $booksResponse = json_decode($response->getContent());
+    
+    $response->assertStatus(200);
+    $this->assertCount(1, $booksResponse);
+    $this->assertEquals('Stephen', $booksResponse[0]->author->first_name);
+   }
+
    public function test_books_show_method()
    {
      //Create the conditions so that we can run the test.
