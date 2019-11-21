@@ -31,6 +31,8 @@ class BooksController extends Controller
 
     return response()
       ->json($pastBooks);
+
+  
   }
 
   public function show($id)
