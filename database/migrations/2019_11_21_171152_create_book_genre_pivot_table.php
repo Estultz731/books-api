@@ -15,7 +15,11 @@ class CreateBookGenrePivotTable extends Migration
     {
         Schema::create('book_genre', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('book_id');
+            $table->unsignedBigInteger('genre_id');
             $table->timestamps();
+            $table->foreign('book_id')->references('id')->on('books');
+            $table->foreign('genre_id')->references('id')->on('genres');
         });
     }
 
