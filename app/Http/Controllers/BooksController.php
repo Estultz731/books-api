@@ -15,19 +15,19 @@ class BooksController extends Controller
     //Get all books with authors
     //If there is no publication date query param, just return all the books.
     if(!$request->query('publication_date')) {
-      $books = Book::with('author')->get();
+      $books = Book::with(['author', 'genres'])->get();
       //Return books as json
       return response()
         ->json($books);
     }
 
     if ($request->query('publication_date') === 'future') {
-      $futureBooks = Book::where('publication_date', '>', Carbon::now()->toDateTimeString())->with('author')->get();
+      $futureBooks = Book::where('publication_date', '>', Carbon::now()->toDateTimeString())->with(['author', 'genres'])->get();
       return response()
         ->json($futureBooks);
     }
 
-    $pastBooks = Book::where('publication_date', '<', Carbon::now()->toDateTimeString())->with('author')->get();
+    $pastBooks = Book::where('publication_date', '<', Carbon::now()->toDateTimeString())->with(['author', 'genres'])->get();
 
     return response()
       ->json($pastBooks);

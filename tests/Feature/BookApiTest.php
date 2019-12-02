@@ -8,6 +8,7 @@ use Tests\TestCase;
 use App\Author;
 use App\Book;
 use Carbon\Carbon;
+use App\Genre;
 
 class BookApiTest extends TestCase {
   use RefreshDatabase;
@@ -21,13 +22,22 @@ class BookApiTest extends TestCase {
    {
      //Create author and books
      $author = Author::create(['first_name' => 'Stephen', 'last_name' => 'King']);
+
+     $genre = Genre::first();
+     $newGenre = Genre::all()[1];
+
      $book = Book::create([
        'title' => 'Carrie', 
        'publication_date' => Carbon::now()->toDateTimeString(),
        'author_id' => $author->id 
     ]);
+
+    $book->genres()->attach($genre->id);
+    $book->genres()->attach($newGenre->id);
+
     $response = $this->get('api/books');
     $booksResponse = json_decode($response->getContent());
+    dd($booksResponse);
     
     $response->assertStatus(200);
     $this->assertCount(1, $booksResponse);
