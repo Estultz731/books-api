@@ -76,7 +76,7 @@ class BookApiTest extends TestCase {
      $book = Book::create(['title' => 'Dracula', 'publication_date' => Carbon::now()->toDateTimeString(), 'author_id' => $author->id]);
 
      //Call the api endpoint and store the response in a variable.
-     $response = $this->get("api/books/$author->id");
+     $response = $this->get("api/books/$book->id");
      $booksResponse = json_decode($response->getContent());
 
      $response->assertStatus(200);
@@ -90,7 +90,7 @@ class BookApiTest extends TestCase {
 
      $book = Book::create(['title' => 'Interview With a Vampire', 'publication_date' => Carbon::now()->toDateTimeString(), 'author_id' => $author->id]);
 
-     $response = $this->delete('api/books/' . $author->id);
+     $response = $this->delete('api/books/' . $book->id);
      $booksResponse = json_decode($response->getContent());
 
      $response->assertStatus(200);
