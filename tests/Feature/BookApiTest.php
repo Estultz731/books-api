@@ -8,6 +8,7 @@ use Tests\TestCase;
 use App\Author;
 use App\Book;
 use Carbon\Carbon;
+use App\Genre;
 
 class BookApiTest extends TestCase {
   use RefreshDatabase;
@@ -21,13 +22,22 @@ class BookApiTest extends TestCase {
    {
      //Create author and books
      $author = Author::create(['first_name' => 'Stephen', 'last_name' => 'King']);
+
+     $genre = Genre::first();
+     $newGenre = Genre::all()[1];
+
      $book = Book::create([
        'title' => 'Carrie', 
        'publication_date' => Carbon::now()->toDateTimeString(),
        'author_id' => $author->id 
     ]);
+
+    $book->genres()->attach($genre->id);
+    $book->genres()->attach($newGenre->id);
+
     $response = $this->get('api/books');
     $booksResponse = json_decode($response->getContent());
+    dd($booksResponse);
     
     $response->assertStatus(200);
     $this->assertCount(1, $booksResponse);
@@ -76,7 +86,7 @@ class BookApiTest extends TestCase {
      $book = Book::create(['title' => 'Dracula', 'publication_date' => Carbon::now()->toDateTimeString(), 'author_id' => $author->id]);
 
      //Call the api endpoint and store the response in a variable.
-     $response = $this->get("api/books/$author->id");
+     $response = $this->get("api/books/$book->id");
      $booksResponse = json_decode($response->getContent());
 
      $response->assertStatus(200);
@@ -90,7 +100,7 @@ class BookApiTest extends TestCase {
 
      $book = Book::create(['title' => 'Interview With a Vampire', 'publication_date' => Carbon::now()->toDateTimeString(), 'author_id' => $author->id]);
 
-     $response = $this->delete('api/books/' . $author->id);
+     $response = $this->delete('api/books/' . $book->id);
      $booksResponse = json_decode($response->getContent());
 
      $response->assertStatus(200);
