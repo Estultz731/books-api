@@ -23,7 +23,8 @@ Route::put('api/authors/{id}', 'AuthorsController@update');
 Route::get('/web/authors', 'AuthorsController@home');
 Route::get('/web/authors/{id}', 'AuthorsController@showOneAuthor');
 
-
+//API Genres
+Route::get('api/genres', 'GenresController@index');
 
 //API Books
 Route::get('api/books', 'BooksController@index');

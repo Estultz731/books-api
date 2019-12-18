@@ -37,7 +37,6 @@ class BookApiTest extends TestCase {
 
     $response = $this->get('api/books');
     $booksResponse = json_decode($response->getContent());
-    dd($booksResponse);
     
     $response->assertStatus(200);
     $this->assertCount(1, $booksResponse);
