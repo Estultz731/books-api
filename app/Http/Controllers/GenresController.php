@@ -14,4 +14,11 @@ class GenresController extends Controller
         return response()->json($genres);
         
     }
+
+    public function show($id)
+    {
+        $genres = Genre::findOrFail($id);
+        return response()
+          ->json($genres);
+    }
 }
