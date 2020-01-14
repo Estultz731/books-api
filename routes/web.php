@@ -25,6 +25,7 @@ Route::get('/web/authors/{id}', 'AuthorsController@showOneAuthor');
 
 //API Genres
 Route::get('api/genres', 'GenresController@index');
+Route::get('api/genres/{id}', 'GenresController@show');
 
 //API Books
 Route::get('api/books', 'BooksController@index');
